@@ -1,0 +1,4 @@
+name: SimpleChat
+version: '1.0'
+main: fr.Louis292.simpleChat.SimpleChat
+author: Louis_292

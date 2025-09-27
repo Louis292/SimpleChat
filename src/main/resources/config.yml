@@ -1,0 +1,10 @@
+# Simple Chat plugin created by Louis_292
+# This is the config file
+
+# Edit the Chat Format you can use: {PLAYER_NAME} {MESSAGE} {PLAYER_DISPLAY_NAME}
+chat_format: "{PLAYER_NAME}: {MESSAGE}"
+
+# allow color chat
+color_chat:
+  require_permission: false
+  permission: "chat.color"

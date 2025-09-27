@@ -23,7 +23,7 @@ public final class SimpleChat extends JavaPlugin implements Listener {
         this.saveDefaultConfig();
         config = getConfig();
 
-        CHAT_FORMAT = config.getString("format");
+        CHAT_FORMAT = config.getString("chat_format");
 
         REQUIRE_PERMISSION = config.getBoolean("color_chat.require_permission");
         PERMISSION = config.getString("color_chat.permission");

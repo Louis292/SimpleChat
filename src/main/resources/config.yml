@@ -4,6 +4,9 @@
 # Edit the Chat Format you can use: {PLAYER_NAME} {MESSAGE} {PLAYER_DISPLAY_NAME}
 chat_format: "{PLAYER_NAME}: {MESSAGE}"
 
+# silent console, do not show the message in console
+silent_console: false
+
 # allow color chat
 color_chat:
   require_permission: false

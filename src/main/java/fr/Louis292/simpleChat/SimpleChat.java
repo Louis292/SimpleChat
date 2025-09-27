@@ -1,5 +1,6 @@
 package fr.Louis292.simpleChat;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -16,6 +17,8 @@ public final class SimpleChat extends JavaPlugin implements Listener {
 
     public static String CHAT_FORMAT;
 
+    public static boolean SILENT;
+
     @Override
     public void onEnable() {
         getLogger().info("Starting...");
@@ -27,6 +30,8 @@ public final class SimpleChat extends JavaPlugin implements Listener {
 
         REQUIRE_PERMISSION = config.getBoolean("color_chat.require_permission");
         PERMISSION = config.getString("color_chat.permission");
+
+        SILENT = config.getBoolean("silent_console");
 
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -56,6 +61,16 @@ public final class SimpleChat extends JavaPlugin implements Listener {
                 .replace("{MESSAGE}", message)
                 .replace("{PLAYER_DISPLAY_NAME}", player.getDisplayName());
 
-        event.setMessage(newMessage);
+        event.setCancelled(true);
+
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+           for (Player p : Bukkit.getOnlinePlayers()) {
+               p.sendMessage(newMessage);
+           }
+
+           if (!SILENT) {
+               getLogger().info("Chat > " + player.getName() + " > " + newMessage);
+           }
+        });
     }
 }

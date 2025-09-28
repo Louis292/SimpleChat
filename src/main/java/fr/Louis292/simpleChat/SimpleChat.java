@@ -20,7 +20,8 @@ public final class SimpleChat extends JavaPlugin implements Listener {
 
     public static boolean SILENT;
 
-    public static boolean SOUND;
+    public static boolean SOUND_ACTIVE;
+    public static Sound SOUND;
 
     @Override
     public void onEnable() {
@@ -36,7 +37,15 @@ public final class SimpleChat extends JavaPlugin implements Listener {
 
         SILENT = config.getBoolean("silent_console", false);
 
-        SOUND = config.getBoolean("play_sound", true);
+        SOUND_ACTIVE = config.getBoolean("play_SOUND_ACTIVE", true);
+
+        String soundName = config.getString("sound", "ENTITY_ARROW_HIT_PLAYER");
+        try {
+            SOUND = Sound.valueOf(soundName.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            getLogger().warning("Invalid sound in config: " + soundName + " (defaulting to ENTITY_ARROW_HIT_PLAYER)");
+            SOUND = Sound.ENTITY_ARROW_HIT_PLAYER;
+        }
 
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -72,8 +81,8 @@ public final class SimpleChat extends JavaPlugin implements Listener {
            for (Player p : Bukkit.getOnlinePlayers()) {
                p.sendMessage(newMessage);
 
-               if (SOUND) {
-                   p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1f, 1f);
+               if (SOUND_ACTIVE) {
+                   p.playSound(p.getLocation(), SOUND, 1f, 1f);
                }
            }
 

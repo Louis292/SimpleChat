@@ -9,6 +9,7 @@ silent_console: false
 
 # play sound on message
 play_sound: true
+sound: ENTITY_ARROW_HIT_PLAYER
 
 # allow color chat
 color_chat:

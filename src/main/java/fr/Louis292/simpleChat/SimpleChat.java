@@ -2,6 +2,7 @@ package fr.Louis292.simpleChat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +20,8 @@ public final class SimpleChat extends JavaPlugin implements Listener {
 
     public static boolean SILENT;
 
+    public static boolean SOUND;
+
     @Override
     public void onEnable() {
         getLogger().info("Starting...");
@@ -26,12 +29,14 @@ public final class SimpleChat extends JavaPlugin implements Listener {
         this.saveDefaultConfig();
         config = getConfig();
 
-        CHAT_FORMAT = config.getString("chat_format");
+        CHAT_FORMAT = config.getString("chat_format", "{PLAYER_NAME} > {MESSAGE}");
 
-        REQUIRE_PERMISSION = config.getBoolean("color_chat.require_permission");
-        PERMISSION = config.getString("color_chat.permission");
+        REQUIRE_PERMISSION = config.getBoolean("color_chat.require_permission", false);
+        PERMISSION = config.getString("color_chat.permission", "color_chat.permission");
 
-        SILENT = config.getBoolean("silent_console");
+        SILENT = config.getBoolean("silent_console", false);
+
+        SOUND = config.getBoolean("play_sound", true);
 
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -66,6 +71,10 @@ public final class SimpleChat extends JavaPlugin implements Listener {
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
            for (Player p : Bukkit.getOnlinePlayers()) {
                p.sendMessage(newMessage);
+
+               if (SOUND) {
+                   p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND, 1f, 1f);
+               }
            }
 
            if (!SILENT) {

@@ -7,6 +7,9 @@ chat_format: "{PLAYER_NAME}: {MESSAGE}"
 # silent console, do not show the message in console
 silent_console: false
 
+# play sound on message
+play_sound: true
+
 # allow color chat
 color_chat:
   require_permission: false

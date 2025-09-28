@@ -73,7 +73,7 @@ public final class SimpleChat extends JavaPlugin implements Listener {
                p.sendMessage(newMessage);
 
                if (SOUND) {
-                   p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND, 1f, 1f);
+                   p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1f, 1f);
                }
            }
 
